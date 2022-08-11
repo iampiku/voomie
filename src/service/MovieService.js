@@ -49,18 +49,6 @@ export default class MovieService {
 		}
 	}
 
-	async getLatestMovie() {
-		try {
-			const response = await axios.get(
-				`${process.env.VUE_APP_API_URL}movie/latest?api_key=${process.env.VUE_APP_API_KEY}&language=en-US`
-			);
-			return response?.data;
-		} catch (error) {
-			console.log(error);
-			throw error;
-		}
-	}
-
 	async getMovieGenres() {
 		try {
 			if ('caches' in window) {

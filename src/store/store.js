@@ -11,7 +11,10 @@ export default new Vuex.Store({
 		popularMovies: [],
 		moviesInTheater: [],
 		upComingMovies: [],
-		latestMovies: {},
+		topRatedMovies: [],
+		movieRecommendation: [],
+		movieGenres: [],
+		casts: [],
 	},
 	getters: {
 		getPopularMovies(state) {
@@ -26,8 +29,20 @@ export default new Vuex.Store({
 			return state.upComingMovies;
 		},
 
-		getLatestMovies(state) {
-			return state.latestMovies;
+		getTopRatedMovies(state) {
+			return state.topRatedMovies;
+		},
+
+		getMovieGenres(state) {
+			return state.movieGenres;
+		},
+
+		getMovieCasts(state) {
+			return state.casts;
+		},
+
+		getMovieRecommendations(state) {
+			return state.movieRecommendation;
 		},
 	},
 	mutations: {
@@ -43,8 +58,20 @@ export default new Vuex.Store({
 			state.upComingMovies = upComingMovies;
 		},
 
-		setLatestMovies(state, latestMovies) {
-			state.latestMovies = latestMovies;
+		setTopRatedMovies(state, topRatedMovies) {
+			state.topRatedMovies = topRatedMovies;
+		},
+
+		setMovieGenres(state, movieGenres) {
+			state.movieGenres = movieGenres;
+		},
+
+		setMovieCasts(state, casts) {
+			state.casts = casts;
+		},
+
+		setMovieRecommedation(state, movieRecommendation) {
+			state.movieRecommendation = movieRecommendation;
 		},
 	},
 	actions: {
@@ -63,9 +90,24 @@ export default new Vuex.Store({
 			commit('setUpComingMovies', data);
 		},
 
-		async latestMovies({ commit }) {
-			const data = await movieService.getLatestMovie();
-			commit('setLatestMovies', data);
+		async topRatedMovies({ commit }) {
+			const data = await movieService.getTopRatedMovies();
+			commit('setTopRatedMovies', data);
+		},
+
+		async movieGenres({ commit }) {
+			const data = await movieService.getMovieGenres();
+			commit('setMovieGenres', data);
+		},
+
+		async movieCasts({ commit }, movieID) {
+			const data = await movieService.getMovieCasts(movieID);
+			commit('setMovieCasts', data);
+		},
+
+		async movieRecommendation({ commit }, movieID) {
+			const data = await movieService.getMovieRecommendations(movieID);
+			commit('setMovieRecommendation', data);
 		},
 	},
 	modules: {},
