@@ -1,5 +1,5 @@
 <template>
-	<v-bottom-navigation shift class="justify-space-around">
+	<v-bottom-navigation dark shift class="justify-space-around">
 		<v-btn icon @click="handleNavAction('popular')">
 			<span>Popular</span>
 

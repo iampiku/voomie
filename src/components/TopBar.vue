@@ -1,5 +1,5 @@
 <template>
-	<v-app-bar app>
+	<v-app-bar dark app>
 		<v-toolbar-title>Voomie</v-toolbar-title>
 		<v-spacer></v-spacer>
 
@@ -9,14 +9,14 @@
 			filled
 			rounded
 			clearable
-			placeholder="Search..."
-			class="shrink mx-5 mt-6"
-			v-show="showSearchBox"
+			placeholder="Search"
+			prepend-inner-icon="mdi-magnify"
+			class="pt-6 shrink expanding-search"
+			:class="{ closed: searchBoxClosed && !searchText }"
 			@keyup.enter="onSearch"
+			@focus="searchBoxClosed = false"
+			@blur="searchBoxClosed = true"
 		></v-text-field>
-		<v-btn icon @click="handleSearch">
-			<v-icon>mdi-magnify</v-icon>
-		</v-btn>
 	</v-app-bar>
 </template>
 
@@ -25,15 +25,11 @@
 		name: 'top-bar',
 
 		data: () => ({
-			showSearchBox: false,
-			searchText: '',
+			searchText: null,
+			searchBoxClosed: true,
 		}),
 
 		methods: {
-			handleSearch: function () {
-				this.showSearchBox = !this.showSearchBox;
-			},
-
 			onSearch: function () {
 				this.$emit('search-event', this.searchText);
 			},
@@ -41,4 +37,10 @@
 	};
 </script>
 
-<style scoped></style>
+<style scoped lang="sass">
+	.v-input.expanding-search
+		transition: max-width 0.5s
+		.v-input__slot
+		&.closed
+			max-width: 70px
+</style>
