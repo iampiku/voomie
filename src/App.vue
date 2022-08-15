@@ -56,7 +56,7 @@
 					movies.forEach((movie) => {
 						const genreNameArr = [];
 						movie.genre_ids?.forEach((e) => {
-							this.movieGenres.forEach(({ id, name }) => {
+							this.movieGenres?.forEach(({ id, name }) => {
 								if (id === e) genreNameArr.push(name);
 							});
 						});
