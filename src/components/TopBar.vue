@@ -40,7 +40,6 @@
 <style scoped lang="sass">
 	.v-input.expanding-search
 		transition: max-width 0.5s
-		.v-input__slot
 		&.closed
 			max-width: 70px
 </style>
