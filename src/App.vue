@@ -2,10 +2,10 @@
 	<v-app>
 		<top-bar @search-event="handleSearch"></top-bar>
 		<v-main>
-			<v-container>
+			<v-container d-flex justify-center>
 				<movie-carousel
 					:movies="movies"
-					@onClick="handleSelect"
+					@on-click="handleSelect"
 				></movie-carousel>
 			</v-container>
 		</v-main>
@@ -35,15 +35,12 @@
 
 		data: () => ({
 			movies: [],
+			genres: [],
 		}),
 
 		beforeCreate() {
 			this.$store.dispatch('popularMovies');
 			this.$store.dispatch('movieGenres');
-		},
-
-		mounted() {
-			this.fetchMoviesWithGenres();
 		},
 
 		computed: {
@@ -53,26 +50,34 @@
 			}),
 		},
 
-		methods: {
-			fetchMoviesWithGenres: function () {
-				this.movies = this.popularMovies;
-				this.movies.forEach((movie) => {
-					const genreNameArr = [];
-					movie.genre_ids.forEach((e) => {
-						this.movieGenres.forEach(({ id, name }) => {
-							if (id === e) genreNameArr.push(name);
+		watch: {
+			popularMovies: {
+				handler(movies) {
+					movies.forEach((movie) => {
+						const genreNameArr = [];
+						movie.genre_ids?.forEach((e) => {
+							this.movieGenres.forEach(({ id, name }) => {
+								if (id === e) genreNameArr.push(name);
+							});
 						});
+						movie['genres'] = genreNameArr;
+						delete movie.genre_ids;
 					});
-					movie['genres'] = genreNameArr;
-					delete movie.genre_ids;
-				});
+					this.movies = movies;
+				},
+				immediate: true,
+				deep: true,
 			},
+		},
 
+		methods: {
 			handleSelect(movie) {
+				this.$store.dispatch('movieCasts', movie);
 				console.log(movie);
 			},
 
 			handleSearch: function (searchItem) {
+				this.$store.dispatch('searchedMovies', searchItem);
 				console.log(searchItem);
 			},
 
