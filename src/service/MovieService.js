@@ -85,8 +85,8 @@ export default class MovieService {
 
 	async getSearchResults(movieName) {
 		try {
-			const response = axios.get(
-				`${process.env.VUE_APP_API_URL}search/movie?api_key=${process.env.VUE_APP_API_KEY}}&language=en-US&query=${movieName}&page=1&include_adult=false`
+			const response = await axios.get(
+				`${process.env.VUE_APP_API_URL}search/movie?api_key=${process.env.VUE_APP_API_KEY}&language=en-US&query=${movieName}&page=1&include_adult=false`
 			);
 			return response?.data?.results;
 		} catch (error) {
