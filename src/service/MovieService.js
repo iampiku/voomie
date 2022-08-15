@@ -95,6 +95,18 @@ export default class MovieService {
 		}
 	}
 
+	async getMovieDetails(movieID) {
+		try {
+			const response = await axios.get(
+				`${process.env.VUE_APP_API_URL}movie/${movieID}?api_key=${process.env.VUE_APP_API_KEY}&language=en-US`
+			);
+			return response?.data;
+		} catch (error) {
+			console.log(error);
+			throw error;
+		}
+	}
+
 	async getMovieCasts(movieID) {
 		try {
 			const response = await axios.get(

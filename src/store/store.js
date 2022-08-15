@@ -16,6 +16,7 @@ export default new Vuex.Store({
 		searchedMovies: [],
 		movieGenres: [],
 		casts: [],
+		movieDetails: {},
 	},
 	getters: {
 		getPopularMovies(state) {
@@ -44,6 +45,10 @@ export default new Vuex.Store({
 
 		getMovieCasts(state) {
 			return state.casts;
+		},
+
+		getMovieDetails(state) {
+			return state.movieDetails;
 		},
 
 		getMovieRecommendations(state) {
@@ -77,6 +82,10 @@ export default new Vuex.Store({
 
 		setMovieCasts(state, casts) {
 			state.casts = casts;
+		},
+
+		setMovieDetails(state, movieDetails) {
+			state.movieDetails = movieDetails;
 		},
 
 		setMovieRecommendation(state, movieRecommendation) {
@@ -117,6 +126,11 @@ export default new Vuex.Store({
 		async movieCasts({ commit }, movieID) {
 			const data = await movieService.getMovieCasts(movieID);
 			commit('setMovieCasts', data);
+		},
+
+		async movieDetails({ commit }, movieID) {
+			const data = await movieService.getMovieDetails(movieID);
+			commit('setMovieDetails', data);
 		},
 
 		async movieRecommendation({ commit }, movieID) {
