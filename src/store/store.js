@@ -6,6 +6,27 @@ const movieService = new MovieService();
 
 Vue.use(Vuex);
 
+/**
+ * helper function to build movies array with
+ * genre name array;
+ * @param {Array} movies
+ * @returns movies with genres array;
+ */
+async function fetchMoviesWithGenres(movies) {
+	const genres = await movieService.getMovieGenres();
+	movies.forEach((movie) => {
+		const genreNameArr = [];
+		movie.genre_ids.forEach((e) => {
+			genres.forEach(({ id, name }) => {
+				if (id === e) genreNameArr.push(name);
+			});
+			movie['genres'] = genreNameArr;
+			delete movie.genre_ids;
+		});
+	});
+	return movies;
+}
+
 export default new Vuex.Store({
 	state: {
 		popularMovies: [],
@@ -14,7 +35,6 @@ export default new Vuex.Store({
 		topRatedMovies: [],
 		movieRecommendation: [],
 		searchedMovies: [],
-		movieGenres: [],
 		casts: [],
 	},
 	getters: {
@@ -32,10 +52,6 @@ export default new Vuex.Store({
 
 		getTopRatedMovies(state) {
 			return state.topRatedMovies;
-		},
-
-		getMovieGenres(state) {
-			return state.movieGenres;
 		},
 
 		getSearchedMovies(state) {
@@ -67,10 +83,6 @@ export default new Vuex.Store({
 			state.topRatedMovies = topRatedMovies;
 		},
 
-		setMovieGenres(state, movieGenres) {
-			state.movieGenres = movieGenres;
-		},
-
 		setSearchMovies(state, searchedMovies) {
 			state.searchedMovies = searchedMovies;
 		},
@@ -86,32 +98,32 @@ export default new Vuex.Store({
 	actions: {
 		async popularMovies({ commit }) {
 			const data = await movieService.getPopularMovies();
-			commit('setPopularMovies', data);
+			const movies = await fetchMoviesWithGenres(data);
+			commit('setPopularMovies', movies);
 		},
 
 		async moviesInTheater({ commit }) {
 			const data = await movieService.getMoviesInTheater();
-			commit('setMoviesInTheater', data);
+			const movies = await fetchMoviesWithGenres(data);
+			commit('setMoviesInTheater', movies);
 		},
 
 		async upComingMovies({ commit }) {
 			const data = await movieService.getUpcomingMovies();
-			commit('setUpComingMovies', data);
+			const movies = await fetchMoviesWithGenres(data);
+			commit('setUpComingMovies', movies);
 		},
 
 		async topRatedMovies({ commit }) {
 			const data = await movieService.getTopRatedMovies();
-			commit('setTopRatedMovies', data);
-		},
-
-		async movieGenres({ commit }) {
-			const data = await movieService.getMovieGenres();
-			commit('setMovieGenres', data);
+			const movies = await fetchMoviesWithGenres(data);
+			commit('setTopRatedMovies', movies);
 		},
 
 		async searchedMovies({ commit }, movieName) {
 			const data = await movieService.getSearchResults(movieName);
-			commit('setSearchMovies', data);
+			const movies = await fetchMoviesWithGenres(data);
+			commit('setSearchMovies', movies);
 		},
 
 		async movieCasts({ commit }, movieID) {
@@ -121,7 +133,8 @@ export default new Vuex.Store({
 
 		async movieRecommendation({ commit }, movieID) {
 			const data = await movieService.getMovieRecommendations(movieID);
-			commit('setMovieRecommendation', data);
+			const movies = await fetchMoviesWithGenres(data);
+			commit('setMovieRecommendation', movies);
 		},
 	},
 	modules: {},

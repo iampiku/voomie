@@ -4,7 +4,7 @@
 		<v-main>
 			<v-container d-flex justify-center>
 				<movie-carousel
-					:movies="movies"
+					:movies="popularMovies"
 					@on-click="handleSelect"
 				></movie-carousel>
 			</v-container>
@@ -33,41 +33,16 @@
 			MovieCarousel,
 		},
 
-		data: () => ({
-			movies: [],
-			genres: [],
-		}),
+		data: () => ({}),
 
-		beforeCreate() {
+		mounted() {
 			this.$store.dispatch('popularMovies');
-			this.$store.dispatch('movieGenres');
 		},
 
 		computed: {
 			...mapGetters({
 				popularMovies: 'getPopularMovies',
-				movieGenres: 'getMovieGenres',
 			}),
-		},
-
-		watch: {
-			popularMovies: {
-				handler(movies) {
-					movies.forEach((movie) => {
-						const genreNameArr = [];
-						movie.genre_ids?.forEach((e) => {
-							this.movieGenres?.forEach(({ id, name }) => {
-								if (id === e) genreNameArr.push(name);
-							});
-						});
-						movie['genres'] = genreNameArr;
-						delete movie.genre_ids;
-					});
-					this.movies = movies;
-				},
-				immediate: true,
-				deep: true,
-			},
 		},
 
 		methods: {
