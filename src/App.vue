@@ -2,11 +2,8 @@
 	<v-app>
 		<top-bar @search-event="handleSearch"></top-bar>
 		<v-main>
-			<v-container d-flex justify-center>
-				<movie-carousel
-					:movies="popularMovies"
-					@on-click="handleSelect"
-				></movie-carousel>
+			<v-container>
+				<router-view></router-view>
 			</v-container>
 		</v-main>
 		<v-footer padless fixed>
@@ -20,9 +17,6 @@
 <script>
 	import BottomNavigation from '@/components/BottomNavigation.vue';
 	import TopBar from '@/components/TopBar.vue';
-	import MovieCarousel from '@/components/MovieCarousel.vue';
-
-	import { mapGetters } from 'vuex';
 
 	export default {
 		name: 'App',
@@ -30,34 +24,29 @@
 		components: {
 			BottomNavigation,
 			TopBar,
-			MovieCarousel,
 		},
 
 		data: () => ({}),
 
-		mounted() {
-			this.$store.dispatch('popularMovies');
-		},
-
-		computed: {
-			...mapGetters({
-				popularMovies: 'getPopularMovies',
-			}),
-		},
-
 		methods: {
-			handleSelect(movie) {
-				this.$store.dispatch('movieCasts', movie);
-				console.log(movie);
-			},
-
 			handleSearch: function (searchItem) {
 				this.$store.dispatch('searchedMovies', searchItem);
-				console.log(searchItem);
 			},
 
 			handlePageSwitch: function (navItem) {
-				console.log(navItem);
+				switch (navItem) {
+					case 'popular':
+						this.$store.dispatch('popularMovies');
+						break;
+					case 'upcoming':
+						this.$store.dispatch('upComingMovies');
+						break;
+					case 'top-rated':
+						this.$store.dispatch('topRatedMovies');
+						break;
+					default:
+						console.log('About');
+				}
 			},
 		},
 	};

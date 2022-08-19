@@ -1,4 +1,6 @@
-<template></template>
+<template>
+	<div>Hi from top rated</div>
+</template>
 
 <script>
 	export default {
