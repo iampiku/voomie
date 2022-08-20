@@ -1,5 +1,5 @@
 <template>
-	<v-app-bar dark app>
+	<v-app-bar app :color="bg">
 		<v-toolbar-title>Voomie</v-toolbar-title>
 		<v-spacer></v-spacer>
 
@@ -27,9 +27,26 @@
 		data: () => ({
 			searchText: null,
 			searchBoxClosed: true,
+			bg: '',
 		}),
 
+		mounted: function () {
+			window.scroll = () => {
+				this.changeColor();
+			};
+		},
+
 		methods: {
+			changeColor: function () {
+				if (
+					document.body.scrollTop > 100 ||
+					document.documentElement.scrollTop > 100
+				) {
+					this.bg = 'white';
+				} else {
+					this.bg = 'transparent';
+				}
+			},
 			onSearch: function () {
 				this.$emit('search-event', this.searchText);
 			},

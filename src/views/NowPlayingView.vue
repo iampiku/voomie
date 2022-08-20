@@ -1,5 +1,5 @@
 <template>
-	<v-row>
+	<v-row class="d-flex justify-center pt-6">
 		<movie-carousel
 			:movies="movies"
 			@on-click="handleCarouselClick"
@@ -12,7 +12,7 @@
 	import { mapGetters } from 'vuex';
 
 	export default {
-		name: 'TopRatedView',
+		name: 'NowPlayingView',
 		components: {
 			MovieCarousel,
 		},
@@ -21,7 +21,7 @@
 
 		computed: {
 			...mapGetters({
-				movies: 'getPopularMovies',
+				movies: 'getMoviesInTheater',
 			}),
 		},
 

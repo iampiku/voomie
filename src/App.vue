@@ -2,9 +2,7 @@
 	<v-app>
 		<top-bar @search-event="handleSearch"></top-bar>
 		<v-main>
-			<v-container>
-				<router-view></router-view>
-			</v-container>
+			<router-view></router-view>
 		</v-main>
 		<v-footer padless fixed>
 			<bottom-navigation
@@ -37,12 +35,15 @@
 				switch (navItem) {
 					case 'popular':
 						this.$store.dispatch('popularMovies');
+						this.$router.push('/popular');
 						break;
 					case 'upcoming':
 						this.$store.dispatch('upComingMovies');
+						this.$router.push('/upcoming');
 						break;
-					case 'top-rated':
-						this.$store.dispatch('topRatedMovies');
+					case 'nowplaying':
+						this.$store.dispatch('moviesInTheater');
+						this.$router.push('/nowplaying');
 						break;
 					default:
 						console.log('About');

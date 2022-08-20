@@ -1,5 +1,5 @@
 <template>
-	<v-row>
+	<v-row class="d-flex justify-center pt-6" xs12>
 		<movie-carousel
 			:movies="movies"
 			@on-click="handleCarouselClick"
@@ -18,10 +18,6 @@
 		},
 
 		data: () => ({}),
-
-		mounted: function () {
-			this.$store.dispatch('popularMovies');
-		},
 
 		computed: {
 			...mapGetters({

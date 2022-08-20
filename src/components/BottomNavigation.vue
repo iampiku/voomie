@@ -3,7 +3,7 @@
 		<v-btn icon @click="handleNavAction('popular')">
 			<span>Popular</span>
 
-			<v-icon>mdi-movie-play</v-icon>
+			<v-icon>mdi-crown</v-icon>
 		</v-btn>
 
 		<v-btn icon @click="handleNavAction('upcoming')">
@@ -12,10 +12,10 @@
 			<v-icon>mdi-motion-play</v-icon>
 		</v-btn>
 
-		<v-btn icon @click="handleNavAction('top-rated')">
-			<span>Top Rated</span>
+		<v-btn icon @click="handleNavAction('nowplaying')">
+			<span>Now Playing</span>
 
-			<v-icon>mdi-crown</v-icon>
+			<v-icon>mdi-movie-play</v-icon>
 		</v-btn>
 		<v-btn icon @click="handleNavAction('about')">
 			<span>About</span>
@@ -34,7 +34,7 @@
 			/**
 			 * @params {String} item => name of the tap;
 			 */
-			handleNavAction(item) {
+			handleNavAction: function (item) {
 				this.$emit('nav-action', item);
 			},
 		},
