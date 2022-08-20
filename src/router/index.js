@@ -1,19 +1,23 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import PopularView from '../views/PopularView.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
 	{
-		path: '/',
+		path: '/popular',
 		name: 'popular',
-		component: PopularView,
+		component: () => import('@/views/PopularView.vue'),
 	},
 	{
-		path: '/toprated',
-		name: 'toprated',
-		component: () => import('@/views/TopRatedView.vue'),
+		path: '/nowplaying',
+		name: 'nowplaying',
+		component: () => import('@/views/NowPlayingView.vue'),
+	},
+	{
+		path: '/upcoming',
+		name: 'upcoming',
+		component: () => import('@/views/UpcomingView.vue'),
 	},
 	{
 		path: '/about',
