@@ -1,6 +1,14 @@
 <template>
 	<v-app-bar app :color="bg">
-		<v-toolbar-title>Voomie</v-toolbar-title>
+		<v-toolbar-title>
+			<v-img
+				icon
+				src="../assets/clapperboard.png"
+				width="35"
+				class="mb-1"
+			></v-img>
+		</v-toolbar-title>
+		<v-toolbar-title class="pl-2">Voomie</v-toolbar-title>
 		<v-spacer></v-spacer>
 
 		<v-text-field
@@ -9,7 +17,7 @@
 			filled
 			rounded
 			clearable
-			placeholder="Search"
+			placeholder="Search..."
 			prepend-inner-icon="mdi-magnify"
 			class="pt-6 shrink expanding-search"
 			:class="{ closed: searchBoxClosed && !searchText }"
