@@ -2,7 +2,7 @@
 	<v-card class="rounded-xl">
 		<v-carousel
 			cycle
-			height="300"
+			height="350"
 			next-icon="mdi-menu-right"
 			prev-icon="mdi-menu-left"
 			show-arrows-on-hover
@@ -23,6 +23,7 @@
 				:key="index"
 			>
 				<v-img
+					class="rounded-xl"
 					gradient="to top, rgba(100,115,201,.35), rgba(25,32,72,.7)"
 					:src="`http://image.tmdb.org/t/p/original${backdrop_path}`"
 					width="700"

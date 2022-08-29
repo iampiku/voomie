@@ -1,10 +1,10 @@
 <template>
-	<v-row class="d-flex justify-center pt-6">
+	<div class="d-flex justify-center pt-2">
 		<movie-carousel
 			:movies="movies"
 			@on-click="handleCarouselClick"
 		></movie-carousel>
-	</v-row>
+	</div>
 </template>
 
 <script>
@@ -28,6 +28,7 @@
 		methods: {
 			handleCarouselClick: function (movieId) {
 				this.$store.dispatch('movieCasts', movieId);
+				this.$store.dispatch('movieDetails', movieId);
 			},
 		},
 	};
