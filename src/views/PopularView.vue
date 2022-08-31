@@ -4,21 +4,19 @@
 			:movies="movies"
 			@on-click="handleCarouselClick"
 		></movie-carousel>
-
-		<movie-card></movie-card>
 	</div>
 </template>
 
 <script>
 	import MovieCarousel from '@/components/MovieCarousel.vue';
-	import MovieCard from '@/components/MovieCard.vue';
+	//import MovieCard from '@/components/MovieCard.vue';
 	import { mapGetters } from 'vuex';
 
 	export default {
 		name: 'PopularView',
 		components: {
 			MovieCarousel,
-			MovieCard,
+			// MovieCard,
 		},
 
 		data: () => ({}),

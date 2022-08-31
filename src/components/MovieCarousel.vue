@@ -26,12 +26,10 @@
 					class="rounded-xl"
 					gradient="to top, rgba(100,115,201,.35), rgba(25,32,72,.7)"
 					:src="`http://image.tmdb.org/t/p/original${backdrop_path}`"
-					width="700"
 				>
 					<v-card
 						ripple
 						class="px-7 carousel-card"
-						height="350"
 						outlined
 						color="transparent"
 						@click="$emit('on-click', id)"
@@ -87,7 +85,7 @@
 
 <style scoped>
 	.carousel-card {
-		padding-top: 75px;
+		padding-top: 100px;
 	}
 	.card-text-color {
 		font-weight: 600 !important;
