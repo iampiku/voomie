@@ -1,8 +1,8 @@
 <template>
-	<v-card class="rounded-xl">
+	<v-card class="rounded-xl" :width="$vuetify.breakpoint.xs ? '400' : '800'">
 		<v-carousel
 			cycle
-			height="350"
+			:height="$vuetify.breakpoint.xs ? '225' : '350'"
 			next-icon="mdi-menu-right"
 			prev-icon="mdi-menu-left"
 			show-arrows-on-hover
@@ -32,7 +32,7 @@
 						class="px-7 carousel-card"
 						outlined
 						color="transparent"
-						@click="$emit('on-click', id)"
+						@click="$emit('on-carousel-click', id)"
 					>
 						<v-card-title class="font-weight-bold white--text">{{
 							title
@@ -85,7 +85,10 @@
 
 <style scoped>
 	.carousel-card {
-		padding-top: 100px;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 	}
 	.card-text-color {
 		font-weight: 600 !important;

@@ -9,6 +9,7 @@
 			></v-img>
 		</v-toolbar-title>
 		<v-toolbar-title class="pl-2">Voomie</v-toolbar-title>
+
 		<v-spacer></v-spacer>
 
 		<v-text-field
@@ -45,6 +46,9 @@
 		},
 
 		methods: {
+			handleHomeRoute: function () {
+				console.log('Home');
+			},
 			changeColor: function () {
 				if (
 					document.body.scrollTop > 100 ||

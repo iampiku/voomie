@@ -1,9 +1,11 @@
 <template>
 	<v-app>
 		<top-bar @search-event="handleSearch"></top-bar>
-		<v-main>
-			<router-view></router-view>
-		</v-main>
+		<v-container fluid class="app-bottom-padding">
+			<keep-alive>
+				<router-view></router-view>
+			</keep-alive>
+		</v-container>
 		<v-footer padless fixed>
 			<bottom-navigation
 				@nav-action="handlePageSwitch"
@@ -33,6 +35,9 @@
 
 			handlePageSwitch: function (navItem) {
 				switch (navItem) {
+					case 'home':
+						this.$router.push('/home');
+						break;
 					case 'popular':
 						this.$store.dispatch('popularMovies');
 						this.$router.push('/popular');
@@ -52,3 +57,9 @@
 		},
 	};
 </script>
+
+<style scoped>
+	.app-bottom-padding {
+		padding-bottom: 10% !important;
+	}
+</style>

@@ -3,8 +3,8 @@
 		ripple
 		outlined
 		elevation="6"
-		width="200"
-		height="300"
+		:width="$vuetify.breakpoint.xs ? '180' : '200'"
+		:height="$vuetify.breakpoint.xs ? '360' : '300'"
 		class="rounded-xl ma-2"
 		style="cursor: pointer"
 		@click="$emit('on-movie-click', movie.id)"
@@ -30,14 +30,11 @@
 	export default {
 		name: 'movie-card',
 		data: () => ({}),
-
 		props: {
 			movie: {
 				type: {},
-				required: true,
 			},
 		},
-		methods: {},
 	};
 </script>
 

@@ -3,7 +3,7 @@
 		<div class="d-flex justify-center">
 			<movie-carousel
 				:movies="movies"
-				@on-click="handleCarouselClick"
+				@on-carousel-click="handleCarouselClick"
 			></movie-carousel>
 		</div>
 
@@ -11,8 +11,8 @@
 			<movie-card
 				v-for="(movie, index) in movies"
 				:key="index"
-				@on-movie-click="handleCardClick"
 				:movie="movie"
+				@on-movie-click="handleCardClick"
 			></movie-card>
 		</div>
 	</v-main>
@@ -43,7 +43,6 @@
 				this.$store.dispatch('movieCasts', movieId);
 				this.$store.dispatch('movieDetails', movieId);
 			},
-
 			handleCardClick: function (movieId) {
 				this.$store.dispatch('movieCasts', movieId);
 				this.$store.dispatch('movieDetails', movieId);
