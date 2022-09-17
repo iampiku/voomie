@@ -1,9 +1,5 @@
 <template>
-	<v-bottom-navigation
-		shift
-		class="justify-space-around"
-		v-model="defaultValue"
-	>
+	<v-bottom-navigation shift class="justify-space-around" v-model="tabValue">
 		<v-btn icon @click="$emit('nav-action', 'home')">
 			<span>Home</span>
 
@@ -38,8 +34,34 @@
 	export default {
 		name: 'bottom-navigation',
 		data: () => ({
-			defaultValue: 0,
+			tabValue: 0,
 		}),
+		watch: {
+			$route: {
+				handler({ name }) {
+					switch (name) {
+						case 'home':
+							this.tabValue = 0;
+							break;
+						case 'popular':
+							this.tabValue = 1;
+							break;
+						case 'upcoming':
+							this.tabValue = 2;
+							break;
+						case 'nowplaying':
+							this.tabValue = 3;
+							break;
+						case 'about':
+							this.tabValue = 4;
+							break;
+						default:
+							this.tabValue = 0;
+							break;
+					}
+				},
+			},
+		},
 
 		methods: {},
 	};
