@@ -3,8 +3,7 @@
 		ripple
 		outlined
 		elevation="6"
-		:width="$vuetify.breakpoint.xs ? '180' : '200'"
-		:height="$vuetify.breakpoint.xs ? '360' : '300'"
+		:width="cardWidth"
 		class="rounded-xl ma-2"
 		style="cursor: pointer"
 		@click="$emit('on-movie-click', movie.id)"
@@ -32,7 +31,20 @@
 		data: () => ({}),
 		props: {
 			movie: {
-				type: {},
+				type: Object,
+				required: true,
+			},
+		},
+		computed: {
+			cardWidth: function () {
+				switch (this.$vuetify.breakpoint.name) {
+					case 'xs':
+						return 165;
+					case 'md':
+						return 175;
+					default:
+						return 180;
+				}
 			},
 		},
 	};

@@ -1,23 +1,48 @@
 <template>
-	<v-dialog> </v-dialog>
+	<v-dialog
+		v-model="showMovieDetails"
+		:fullscreen="$vuetify.breakpoint.mobile"
+	>
+		<v-card>
+			<v-card-text>{{ movieDetails }}</v-card-text>
+		</v-card>
+	</v-dialog>
 </template>
 
 <script>
+	import { mapGetters } from 'vuex';
+
 	export default {
 		name: 'MovieDetails',
 
-		data: () => ({}),
+		data: () => ({
+			showMovieDetails: false,
+		}),
 
 		props: {
 			movieId: {
 				type: Number,
-				default: 0,
+				default: null,
 			},
+		},
 
-			showMovieDetails: {
-				type: Boolean,
-				default: false,
+		watch: {
+			movieId: {
+				handler(value) {
+					if (value) {
+						this.showMovieDetails = true;
+					}
+				},
+				immediate: true,
 			},
+		},
+
+		computed: {
+			...mapGetters({
+				movieDetails: 'getMovieDetails',
+				movieCasts: 'getMovieCasts',
+				movieRecommendation: 'getMovieRecommendation',
+			}),
 		},
 
 		methods: {},

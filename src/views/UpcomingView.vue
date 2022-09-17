@@ -32,6 +32,10 @@
 
 		data: () => ({}),
 
+		mounted: function () {
+			this.$store.dispatch('upComingMovies');
+		},
+
 		computed: {
 			...mapGetters({
 				movies: 'getUpComingMovies',
@@ -40,12 +44,16 @@
 
 		methods: {
 			handleCarouselClick: function (movieId) {
+				this.movieId = movieId;
 				this.$store.dispatch('movieCasts', movieId);
 				this.$store.dispatch('movieDetails', movieId);
+				this.$store.dispatch('movieRecommendation', movieId);
 			},
 			handleCardClick: function (movieId) {
+				this.movieId = movieId;
 				this.$store.dispatch('movieCasts', movieId);
 				this.$store.dispatch('movieDetails', movieId);
+				this.$store.dispatch('movieRecommendation', movieId);
 			},
 		},
 	};

@@ -15,12 +15,14 @@
 				@on-movie-click="handleCardClick"
 			></movie-card>
 		</div>
+		<MovieDetails :movieId="movieId"></MovieDetails>
 	</v-main>
 </template>
 
 <script>
 	import MovieCarousel from '@/components/MovieCarousel.vue';
 	import MovieCard from '@/components/MovieCard.vue';
+	import MovieDetails from '@/components/MovieDetails.vue';
 	import { mapGetters } from 'vuex';
 
 	export default {
@@ -28,13 +30,16 @@
 		components: {
 			MovieCarousel,
 			MovieCard,
+			MovieDetails,
 		},
 
 		mounted: function () {
 			this.$store.dispatch('popularMovies');
 		},
 
-		data: () => ({}),
+		data: () => ({
+			movieId: 0,
+		}),
 
 		computed: {
 			...mapGetters({
@@ -44,10 +49,16 @@
 
 		methods: {
 			handleCarouselClick: function (movieId) {
+				this.movieId = movieId;
 				this.$store.dispatch('movieCasts', movieId);
+				this.$store.dispatch('movieDetails', movieId);
+				this.$store.dispatch('movieRecommendation', movieId);
 			},
 			handleCardClick: function (movieId) {
+				this.movieId = movieId;
+				this.$store.dispatch('movieCasts', movieId);
 				this.$store.dispatch('movieDetails', movieId);
+				this.$store.dispatch('movieRecommendation', movieId);
 			},
 		},
 	};

@@ -39,15 +39,12 @@
 						this.$router.push('/home');
 						break;
 					case 'popular':
-						this.$store.dispatch('popularMovies');
 						this.$router.push('/popular');
 						break;
 					case 'upcoming':
-						this.$store.dispatch('upComingMovies');
 						this.$router.push('/upcoming');
 						break;
 					case 'nowplaying':
-						this.$store.dispatch('moviesInTheater');
 						this.$router.push('/nowplaying');
 						break;
 					default:
@@ -60,6 +57,6 @@
 
 <style scoped>
 	.app-bottom-padding {
-		padding-bottom: 10% !important;
+		padding-bottom: 25% !important;
 	}
 </style>

@@ -1,8 +1,8 @@
 <template>
-	<v-card class="rounded-xl" :width="$vuetify.breakpoint.xs ? '400' : '800'">
+	<v-card class="rounded-xl" :width="carouselWidth">
 		<v-carousel
 			cycle
-			:height="$vuetify.breakpoint.xs ? '225' : '350'"
+			:height="carouselHeight"
 			next-icon="mdi-menu-right"
 			prev-icon="mdi-menu-left"
 			show-arrows-on-hover
@@ -29,7 +29,7 @@
 				>
 					<v-card
 						ripple
-						class="px-7 carousel-card"
+						class="mx-6 carousel-card"
 						outlined
 						color="transparent"
 						@click="$emit('on-carousel-click', id)"
@@ -73,11 +73,44 @@
 	export default {
 		name: 'movie-carousel',
 		data: () => ({}),
-
 		props: {
 			movies: {
 				type: [],
 				required: true,
+			},
+		},
+		computed: {
+			carouselHeight: function () {
+				switch (this.$vuetify.breakpoint.name) {
+					case 'xs':
+						return 210;
+					case 'sm':
+						return 250;
+					case 'md':
+						return 280;
+					case 'lg':
+						return 380;
+					case 'xl':
+						return 380;
+					default:
+						return 600;
+				}
+			},
+			carouselWidth: function () {
+				switch (this.$vuetify.breakpoint.name) {
+					case 'xs':
+						return 390;
+					case 'sm':
+						return 450;
+					case 'md':
+						return 630;
+					case 'lg':
+						return 960;
+					case 'xl':
+						return 980;
+					default:
+						return 0;
+				}
 			},
 		},
 	};
