@@ -6,21 +6,19 @@
 		:width="cardWidth"
 		class="rounded-xl ma-2"
 		style="cursor: pointer"
-		@click="$emit('on-movie-click', movie.id)"
-	>
+		@click="$emit('on-movie-click', movie.id)">
 		<v-img
-			class="rounded-xl"
+			class="rounded-xl ma-1"
 			gradient="to top, rgba(100,115,201,.20), rgba(25,32,72,.7)"
-			:src="`http://image.tmdb.org/t/p/original${movie.poster_path}`"
-		>
-			<v-card-title class="pb-0 white--text title-name" spacing="-0.1">
-				{{ movie.title }}
-			</v-card-title>
-			<v-spacer></v-spacer>
-			<v-card-text class="pb-0 card-text-color"
-				>{{ movie.release_date }} -
-				{{ movie.vote_average }}</v-card-text
-			>
+			:src="`http://image.tmdb.org/t/p/original${movie.poster_path}`">
+			<div class="card-text">
+				<v-card-title class="pb-0 white--text title-name" spacing="-0.1">
+					{{ movie.title }}
+				</v-card-title>
+				<v-card-text class="pb-0 white--text text-weight-light">
+					<p>{{ movie.vote_average }}/10</p>
+				</v-card-text>
+			</div>
 		</v-img>
 	</v-card>
 </template>
@@ -28,13 +26,16 @@
 <script>
 	export default {
 		name: 'movie-card',
+
 		data: () => ({}),
+
 		props: {
 			movie: {
 				type: Object,
 				required: true,
 			},
 		},
+
 		computed: {
 			cardWidth: function () {
 				switch (this.$vuetify.breakpoint.name) {
@@ -54,8 +55,8 @@
 	.title-name {
 		font-size: medium;
 	}
-	.card-text-color {
-		font-weight: 400 !important;
-		color: white !important;
+	.card-text {
+		display: flex;
+		flex-direction: column;
 	}
 </style>

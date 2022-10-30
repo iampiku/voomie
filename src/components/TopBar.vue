@@ -5,8 +5,7 @@
 				icon
 				src="../assets/clapperboard.png"
 				width="35"
-				class="mb-1"
-			></v-img>
+				class="mb-1"></v-img>
 		</v-toolbar-title>
 		<v-toolbar-title class="pl-2">Voomie</v-toolbar-title>
 
@@ -22,10 +21,9 @@
 			prepend-inner-icon="mdi-magnify"
 			class="pt-6 shrink expanding-search"
 			:class="{ closed: searchBoxClosed && !searchText }"
-			@keyup.enter="onSearch"
+			@keyup.enter="$emit('search-event', searchText)"
 			@focus="searchBoxClosed = false"
-			@blur="searchBoxClosed = true"
-		></v-text-field>
+			@blur="searchBoxClosed = true"></v-text-field>
 	</v-app-bar>
 </template>
 
@@ -58,9 +56,6 @@
 				} else {
 					this.bg = 'transparent';
 				}
-			},
-			onSearch: function () {
-				this.$emit('search-event', this.searchText);
 			},
 		},
 	};

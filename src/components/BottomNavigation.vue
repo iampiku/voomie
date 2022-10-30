@@ -33,9 +33,11 @@
 <script>
 	export default {
 		name: 'bottom-navigation',
+
 		data: () => ({
 			tabValue: 0,
 		}),
+
 		watch: {
 			$route: {
 				handler({ name }) {
@@ -62,7 +64,5 @@
 				},
 			},
 		},
-
-		methods: {},
 	};
 </script>

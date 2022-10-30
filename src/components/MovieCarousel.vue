@@ -6,34 +6,23 @@
 			next-icon="mdi-menu-right"
 			prev-icon="mdi-menu-left"
 			show-arrows-on-hover
-			hide-delimiters
-		>
+			hide-delimiters>
 			<v-carousel-item
 				v-for="(
-					{
-						title,
-						backdrop_path,
-						id,
-						genres,
-						release_date,
-						vote_average,
-					},
+					{ title, backdrop_path, id, genres, release_date, vote_average },
 					index
 				) in movies"
-				:key="index"
-			>
+				:key="index">
 				<v-img
 					class="rounded-xl"
 					gradient="to top, rgba(100,115,201,.35), rgba(25,32,72,.7)"
-					:src="`http://image.tmdb.org/t/p/original${backdrop_path}`"
-				>
+					:src="`http://image.tmdb.org/t/p/original${backdrop_path}`">
 					<v-card
 						ripple
 						class="mx-6 carousel-card"
 						outlined
 						color="transparent"
-						@click="$emit('on-carousel-click', id)"
-					>
+						@click="$emit('on-carousel-click', id)">
 						<v-card-title class="font-weight-bold white--text">{{
 							title
 						}}</v-card-title>
@@ -59,8 +48,7 @@
 								empty-icon="mdi-star-face"
 								:length="vote_average"
 								background-color="orange lighten-3"
-								color="orange"
-							></v-rating>
+								color="orange"></v-rating>
 						</div>
 					</v-card>
 				</v-img>
@@ -123,6 +111,7 @@
 		flex-direction: column;
 		justify-content: center;
 	}
+
 	.card-text-color {
 		font-weight: 600 !important;
 		color: white !important;
