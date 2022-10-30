@@ -5,19 +5,24 @@ Vue.use(VueRouter);
 
 const routes = [
 	{
+		path: '/',
+		name: 'home',
+		component: () => import('@/views/HomeView.vue'),
+	},
+	{
 		path: '/popular',
 		name: 'popular',
-		component: () => import('@/views/PopularView.vue'),
+		component: () => import('@/views/MovieCategoriesView.vue'),
 	},
 	{
 		path: '/nowplaying',
 		name: 'nowplaying',
-		component: () => import('@/views/NowPlayingView.vue'),
+		component: () => import('@/views/MovieCategoriesView.vue'),
 	},
 	{
 		path: '/upcoming',
 		name: 'upcoming',
-		component: () => import('@/views/UpcomingView.vue'),
+		component: () => import('@/views/MovieCategoriesView.vue'),
 	},
 	{
 		path: '/about',

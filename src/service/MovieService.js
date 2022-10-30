@@ -1,54 +1,73 @@
 import axios from 'axios';
+import MOVIE_CATEGORIES from '@/enums/MovieCategories';
 
 export default class MovieService {
-	async getPopularMovies() {
-		try {
-			const response = await axios.get(
-				`${process.env.VUE_APP_API_URL}movie/popular?api_key=${process.env.VUE_APP_API_KEY}&language=en-US&page=1`
-			);
-			return response?.data?.results;
-		} catch (error) {
-			console.log(error);
-			throw error;
+	/**
+	 * helper function to build movies array with
+	 * genre name array.
+	 * @param array movies
+	 * @returns movies with genres array;
+	 */
+	async fetchMoviesWithGenres(data) {
+		const genres = await this.getMovieGenres();
+		data.results.forEach((movie) => {
+			const genreNameArr = [];
+			movie.genre_ids.forEach((e) => {
+				genres.forEach(({ id, name }) => {
+					if (id === e) genreNameArr.push(name);
+				});
+				movie['genres'] = genreNameArr;
+				delete movie.genre_ids;
+			});
+		});
+		return data;
+	}
+	/**
+	 * function responsible for fetching movie based on categories.
+	 * @param string categories
+	 * @param number page
+	 * @param boolean includeAdult
+	 * @returns movies
+	 */
+	async fetchMoviesByCategories(
+		categories = '',
+		page = 1,
+		includeAdult = false
+	) {
+		if (!categories.trim().length)
+			throw new Error('Categories for the movies cannot be empty');
+
+		switch (categories) {
+			case MOVIE_CATEGORIES.UPCOMING_MOVIES:
+			case MOVIE_CATEGORIES.TOP_RATED_MOVIES:
+			case MOVIE_CATEGORIES.NOW_IN_THEATER:
+			case MOVIE_CATEGORIES.POPULAR_MOVIES:
+				try {
+					const { data } = await axios.get(
+						`${process.env.VUE_APP_API_URL}movie/${categories}?api_key=${process.env.VUE_APP_API_KEY}&language=en-US&page=${page}&include_adult=${includeAdult}`
+					);
+					return this.fetchMoviesWithGenres(data);
+				} catch (error) {
+					console.error(error);
+					throw new Error('Unable to fetch movies at this moment.');
+				}
+			default:
+				try {
+					const { data } = await axios.get(
+						`${process.env.VUE_APP_API_URL}movie/${MOVIE_CATEGORIES.TOP_RATED_MOVIES}?api_key=${process.env.VUE_APP_API_KEY}&language=en-US&page=${page}`
+					);
+					return this.fetchMoviesWithGenres(data);
+				} catch (error) {
+					console.error(error);
+					throw new Error('Unable to fetch movies at this moment.');
+				}
 		}
 	}
 
-	async getMoviesInTheater() {
-		try {
-			const response = await axios.get(
-				`${process.env.VUE_APP_API_URL}movie/now_playing?api_key=${process.env.VUE_APP_API_KEY}&language=en-US&page=1`
-			);
-			return response?.data?.results;
-		} catch (error) {
-			console.log(error);
-			throw error;
-		}
-	}
-
-	async getUpcomingMovies() {
-		try {
-			const response = await axios.get(
-				`${process.env.VUE_APP_API_URL}movie/upcoming?api_key=${process.env.VUE_APP_API_KEY}&language=en-US&page=1`
-			);
-			return response?.data?.results;
-		} catch (error) {
-			console.log(error);
-			throw error;
-		}
-	}
-
-	async getTopRatedMovies() {
-		try {
-			const response = await axios.get(
-				`${process.env.VUE_APP_API_URL}movie/top_rated?api_key=${process.env.VUE_APP_API_KEY}&language=en-US&page=1`
-			);
-			return response?.data?.results;
-		} catch (error) {
-			console.log(error);
-			throw error;
-		}
-	}
-
+	/**
+	 * fetching movie genres and storing in browser cache memory.
+	 * @returns movieGenres
+	 */
 	async getMovieGenres() {
 		try {
 			if ('caches' in window) {
@@ -57,76 +76,79 @@ export default class MovieService {
 					let response = await caches.match('movie_genres');
 					return response.json();
 				} else {
-					const response = await axios.get(
+					const { data } = await axios.get(
 						`${process.env.VUE_APP_API_URL}genre/movie/list?api_key=${process.env.VUE_APP_API_KEY}&language=en-US`
 					);
 					const cache = await caches.open('movie_genres');
 					cache.put(
 						'movie_genres',
-						new Response(JSON.stringify(response?.data?.genres), {
+						new Response(JSON.stringify(data.genres), {
 							headers: {
 								'content-type': 'application/json',
 							},
 						})
 					);
-					return response?.data?.genres;
+					return data.genres;
 				}
 			} else {
-				const response = await axios.get(
+				const { data } = await axios.get(
 					`${process.env.VUE_APP_API_URL}genre/movie/list?api_key=${process.env.VUE_APP_API_KEY}&language=en-US`
 				);
-				return response?.data?.genres;
+				return data.genres;
 			}
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 			throw error;
 		}
 	}
 
-	async getSearchResults(movieName) {
+	async getSearchResults(movieName = '', page = 1, includeAdult = true) {
+		if (!movieName.trim().length)
+			throw new Error('Movie search query cannot be empty.');
+
 		try {
-			const response = await axios.get(
-				`${process.env.VUE_APP_API_URL}search/movie?api_key=${process.env.VUE_APP_API_KEY}&language=en-US&query=${movieName}&page=1&include_adult=false`
+			const { data } = await axios.get(
+				`${process.env.VUE_APP_API_URL}search/movie?api_key=${process.env.VUE_APP_API_KEY}&language=en-US&query=${movieName}&page=${page}&include_adult=${includeAdult}`
 			);
-			return response?.data?.results;
+			return data;
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 			throw error;
 		}
 	}
 
 	async getMovieDetails(movieID) {
 		try {
-			const response = await axios.get(
+			const { data } = await axios.get(
 				`${process.env.VUE_APP_API_URL}movie/${movieID}?api_key=${process.env.VUE_APP_API_KEY}&language=en-US`
 			);
-			return response?.data;
+			return data;
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 			throw error;
 		}
 	}
 
 	async getMovieCasts(movieID) {
 		try {
-			const response = await axios.get(
+			const { data } = await axios.get(
 				`${process.env.VUE_APP_API_URL}movie/${movieID}/credits?api_key=${process.env.VUE_APP_API_KEY}&language=en-US`
 			);
-			return response?.data?.cast;
+			return data;
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 			throw error;
 		}
 	}
 
-	async getMovieRecommendations(movieID) {
+	async getMovieRecommendations(movieID, page = 1) {
 		try {
-			const response = await axios.get(
-				`${process.env.VUE_APP_API_URL}movie/${movieID}/recommendations?api_key=${process.env.VUE_APP_API_KEY}&language=en-US&page=1`
+			const { data } = await axios.get(
+				`${process.env.VUE_APP_API_URL}movie/${movieID}/recommendations?api_key=${process.env.VUE_APP_API_KEY}&language=en-US&page=${page}`
 			);
-			return response?.data?.results;
+			return data;
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 			throw error;
 		}
 	}
