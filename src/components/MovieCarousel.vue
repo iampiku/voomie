@@ -28,8 +28,14 @@
 						}}</v-card-title>
 
 						<v-card-text class="card-text-color pb-0"
-							>Released Date: {{ release_date }}
+							><v-icon color="red">mdi-calendar-today</v-icon>
+							{{ release_date }}
 						</v-card-text>
+
+						<v-card-text class="card-text-color pb-0"
+							><v-icon left color="red">mdi-star-face</v-icon>
+							{{ vote_average }}/10</v-card-text
+						>
 
 						<div class="pl-3 pt-2">
 							<v-chip
@@ -43,12 +49,12 @@
 								>{{ genre }}</v-chip
 							>
 
-							<v-rating
+							<!-- <v-rating
 								class="pb-0"
 								empty-icon="mdi-star-face"
 								:length="vote_average"
 								background-color="orange lighten-3"
-								color="orange"></v-rating>
+								color="orange"></v-rating> -->
 						</div>
 					</v-card>
 				</v-img>

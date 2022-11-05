@@ -1,5 +1,9 @@
 <template>
-	<v-bottom-navigation shift class="justify-space-around" v-model="tabValue">
+	<v-bottom-navigation
+		shift
+		dark
+		class="justify-space-around"
+		v-model="tabValue">
 		<v-btn icon @click="$emit('nav-action', 'home')">
 			<span>Home</span>
 

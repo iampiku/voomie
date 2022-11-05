@@ -37,7 +37,7 @@
 			handlePageSwitch: function (navItem) {
 				switch (navItem) {
 					case 'home':
-						this.$router.push('/home');
+						this.$router.push('/');
 						break;
 					case 'popular':
 						this.$router.push('/popular');

@@ -1,5 +1,5 @@
 <template>
-	<v-app-bar app :color="bg">
+	<v-app-bar app dark color="bg">
 		<v-toolbar-title>
 			<v-img
 				icon

@@ -51,16 +51,6 @@ export default class MovieService {
 					console.error(error);
 					throw new Error('Unable to fetch movies at this moment.');
 				}
-			default:
-				try {
-					const { data } = await axios.get(
-						`${process.env.VUE_APP_API_URL}movie/${MOVIE_CATEGORIES.TOP_RATED_MOVIES}?api_key=${process.env.VUE_APP_API_KEY}&language=en-US&page=${page}`
-					);
-					return this.fetchMoviesWithGenres(data);
-				} catch (error) {
-					console.error(error);
-					throw new Error('Unable to fetch movies at this moment.');
-				}
 		}
 	}
 

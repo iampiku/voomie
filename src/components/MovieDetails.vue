@@ -53,10 +53,6 @@
 			movieCastName: [],
 		}),
 
-		mounted: function () {
-			if (this.movieId !== 0) this.fetchMovieDetails();
-		},
-
 		props: {
 			movieId: {
 				type: Number,
@@ -65,6 +61,17 @@
 			value: {
 				type: Boolean,
 				default: false,
+			},
+		},
+
+		watch: {
+			movieId: {
+				handler() {
+					this.fetchMovieDetails();
+					if (this.movieDetails.id) {
+						this.getMovieCastName();
+					}
+				},
 			},
 		},
 
@@ -100,10 +107,10 @@
 		methods: {
 			fetchMovieDetails: async function () {
 				this.movieDetails = await movieService.getMovieDetails(this.movieId);
-				console.log(this.movieDetails);
 			},
-			getMovieCastName: function () {
-				this.movieCasts.forEach(
+			getMovieCastName: async function () {
+				const cast = await movieService.getMovieCasts(this.movieId);
+				cast.forEach(
 					({ known_for_department, profile_path, original_name }) => {
 						if (known_for_department === 'Acting')
 							this.movieCastName.push({
