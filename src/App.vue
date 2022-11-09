@@ -1,8 +1,10 @@
 <template>
 	<v-app>
 		<top-bar @search-event="handleSearch"></top-bar>
-		<v-container fluid>
-			<router-view></router-view>
+		<v-container>
+			<keep-alive>
+				<router-view></router-view>
+			</keep-alive>
 		</v-container>
 		<v-footer padless fixed>
 			<bottom-navigation @nav-action="handlePageSwitch"></bottom-navigation>

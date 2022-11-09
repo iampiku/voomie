@@ -6,7 +6,7 @@
 				@on-carousel-click="handleMovieClick"></movie-carousel>
 		</div>
 		<div class="py-6 d-flex justify-center">
-			<v-chip ripple class="px-12"
+			<v-chip ripple class="px-12 white--text" color="red"
 				>{{ movieCategoryName }}
 				<v-icon right>{{ getChipIcon }}</v-icon></v-chip
 			>

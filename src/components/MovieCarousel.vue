@@ -48,13 +48,6 @@
 								:key="index"
 								>{{ genre }}</v-chip
 							>
-
-							<!-- <v-rating
-								class="pb-0"
-								empty-icon="mdi-star-face"
-								:length="vote_average"
-								background-color="orange lighten-3"
-								color="orange"></v-rating> -->
 						</div>
 					</v-card>
 				</v-img>

@@ -2,10 +2,17 @@
 	<v-sheet class="mx-auto">
 		<v-slide-group class="pa-4" show-arrows>
 			<v-slide-item v-for="(movie, index) in movies.results" :key="index">
-				<v-card class="ma-2" height="180" width="120">
-					<v-img
-						:src="`http://image.tmdb.org/t/p/w200${movie.poster_path}`"></v-img>
-				</v-card>
+				<v-hover v-slot="{ hover }">
+					<v-card
+						class="ma-2 slider-card"
+						height="180"
+						width="120"
+						:elevation="hover ? 6 : 0"
+						@click="$emit('movie-clicked', movie.id)">
+						<v-img
+							:src="`http://image.tmdb.org/t/p/w200${movie.poster_path}`"></v-img>
+					</v-card>
+				</v-hover>
 			</v-slide-item>
 		</v-slide-group>
 	</v-sheet>
@@ -24,4 +31,8 @@
 	};
 </script>
 
-<style scoped></style>
+<style scoped>
+	.slider-card {
+		cursor: pointer;
+	}
+</style>
