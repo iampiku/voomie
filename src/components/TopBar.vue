@@ -17,13 +17,14 @@
 			filled
 			rounded
 			clearable
-			placeholder="Search..."
+			placeholder="Search...🍿"
 			prepend-inner-icon="mdi-magnify"
 			class="pt-6 shrink expanding-search"
 			:class="{ closed: searchBoxClosed && !searchText }"
 			@keyup.enter="$emit('search-event', searchText)"
 			@focus="searchBoxClosed = false"
-			@blur="searchBoxClosed = true"></v-text-field>
+			@blur="searchBoxClosed = true">
+		</v-text-field>
 	</v-app-bar>
 </template>
 

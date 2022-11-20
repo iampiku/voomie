@@ -1,5 +1,4 @@
 import axios from 'axios';
-import MOVIE_CATEGORIES from '@/enums/MovieCategories';
 
 export default class MovieService {
 	/**
@@ -36,21 +35,14 @@ export default class MovieService {
 	) {
 		if (!categories.trim().length)
 			throw new Error('Categories for the movies cannot be empty');
-
-		switch (categories) {
-			case MOVIE_CATEGORIES.UPCOMING_MOVIES:
-			case MOVIE_CATEGORIES.TOP_RATED_MOVIES:
-			case MOVIE_CATEGORIES.NOW_IN_THEATER:
-			case MOVIE_CATEGORIES.POPULAR_MOVIES:
-				try {
-					const { data } = await axios.get(
-						`${process.env.VUE_APP_API_URL}movie/${categories}?api_key=${process.env.VUE_APP_API_KEY}&language=en-US&page=${page}&include_adult=${includeAdult}`
-					);
-					return this.fetchMoviesWithGenres(data);
-				} catch (error) {
-					console.error(error);
-					throw new Error('Unable to fetch movies at this moment.');
-				}
+		try {
+			const { data } = await axios.get(
+				`${process.env.VUE_APP_API_URL}movie/${categories}?api_key=${process.env.VUE_APP_API_KEY}&language=en-US&page=${page}&include_adult=${includeAdult}`
+			);
+			return this.fetchMoviesWithGenres(data);
+		} catch (error) {
+			console.error(error);
+			throw new Error('Unable to fetch movies at this moment.');
 		}
 	}
 

@@ -44,8 +44,8 @@
 								text-color="white"
 								pill
 								small
-								v-for="(genre, index) in genres"
 								:key="index"
+								v-for="(genre, index) in genres"
 								>{{ genre }}</v-chip
 							>
 						</div>

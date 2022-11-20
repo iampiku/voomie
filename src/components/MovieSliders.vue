@@ -2,25 +2,23 @@
 	<v-sheet class="mx-auto">
 		<v-slide-group class="pa-4" show-arrows>
 			<v-slide-item v-for="(movie, index) in movies.results" :key="index">
-				<v-hover v-slot="{ hover }">
-					<v-card
-						class="ma-2 slider-card"
-						height="180"
-						width="120"
-						:elevation="hover ? 6 : 0"
-						@click="$emit('movie-clicked', movie.id)">
-						<v-img
-							:src="`http://image.tmdb.org/t/p/w200${movie.poster_path}`"></v-img>
-					</v-card>
-				</v-hover>
+				<MovieCard
+					:movie="movie"
+					@on-movie-click="handleMovieClick"></MovieCard>
 			</v-slide-item>
 		</v-slide-group>
 	</v-sheet>
 </template>
 
 <script>
+	import MovieCard from './MovieCard.vue';
+
 	export default {
 		name: 'movie-sliders',
+
+		components: {
+			MovieCard,
+		},
 
 		props: {
 			movies: {
@@ -28,11 +26,13 @@
 				required: true,
 			},
 		},
+
+		methods: {
+			handleMovieClick: function (movieId) {
+				console.log(movieId);
+			},
+		},
 	};
 </script>
 
-<style scoped>
-	.slider-card {
-		cursor: pointer;
-	}
-</style>
+<style scoped></style>

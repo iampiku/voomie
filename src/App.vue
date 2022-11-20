@@ -1,10 +1,10 @@
 <template>
-	<v-app>
+	<v-app bg="gray">
 		<top-bar @search-event="handleSearch"></top-bar>
 		<v-container>
-			<keep-alive>
+			<transition name="scale" mode="out-in">
 				<router-view></router-view>
-			</keep-alive>
+			</transition>
 		</v-container>
 		<v-footer padless fixed>
 			<bottom-navigation @nav-action="handlePageSwitch"></bottom-navigation>
@@ -59,4 +59,14 @@
 	};
 </script>
 
-<style scoped></style>
+<style scoped>
+	.scale-enter-active,
+	.scale-leave-active {
+		transition: all 0.5s ease;
+	}
+	.scale-enter-from,
+	.scale-leave-to {
+		opacity: 0;
+		transform: scale(0.9);
+	}
+</style>

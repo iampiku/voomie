@@ -1,39 +1,44 @@
 <template>
 	<v-dialog v-model="showMovieDetails" fullscreen>
-		<v-card class="elevation-0">
-			<v-card-title
-				>{{ movieDetails.original_title }}
+		<v-card flat>
+			<v-card-title>
 				<v-spacer> </v-spacer>
 				<v-icon @click.stop="showMovieDetails = false">mdi-close</v-icon>
 			</v-card-title>
-			<v-row>
-				<v-col>
-					<v-chip-group class="pl-3 pb-2">
-						<v-chip
-							tag
-							small
-							ripple
-							class="ml-1"
-							color="orange"
-							text-color="white"
-							v-for="({ name }, index) in movieDetails.genres"
-							:key="index"
-							>{{ name }}</v-chip
-						>
-					</v-chip-group>
-					<v-card-text>
+			<v-card flat width="880">
+				<v-row>
+					<v-col>
+						<v-img
+							class="rounded-xl"
+							width="180"
+							:src="`http://image.tmdb.org/t/p/original${movieDetails.poster_path}`"></v-img>
+					</v-col>
+					<v-col>
+						<v-card-title class="pr-4">{{
+							movieDetails.original_title
+						}}</v-card-title>
+						<v-chip-group class="pb-2">
+							<v-chip
+								tag
+								small
+								ripple
+								class="ml-1"
+								color="orange"
+								text-color="white"
+								v-for="({ name }, index) in movieDetails.genres"
+								:key="index"
+								>{{ name }}</v-chip
+							>
+						</v-chip-group>
 						<p class="font-weight-bold">{{ movieDetails.tagline }}</p>
+						{{ movieDetails.overview }}
+						<p v-if="productionCompanyName.length">
+							Production Companies: <span>{{ productionCompanyName }}</span>
+						</p>
+					</v-col>
+				</v-row>
+			</v-card>
 
-						{{ movieDetails.overview }}</v-card-text
-					>
-					<v-card-text v-if="productionCompanyName.length">
-						Production Companies: <span>{{ productionCompanyName }}</span>
-					</v-card-text>
-				</v-col>
-				<v-col>
-					<p>Movie poster over here!</p>
-				</v-col>
-			</v-row>
 			<v-row>
 				<v-col> Movie Recommendation over here! </v-col>
 			</v-row>

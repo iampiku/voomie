@@ -17,6 +17,9 @@
 				:key="index"
 				:movie="movie"
 				@on-movie-click="handleMovieClick"></movie-card>
+			<div
+				v-if="movies && movies.results && movies.results.length"
+				v-observe-visibility="handleScrollBottom"></div>
 		</div>
 		<MovieDetails v-model="showDialog" :movieId="movieId"></MovieDetails>
 	</v-container>
@@ -42,6 +45,7 @@
 		},
 
 		data: () => ({
+			page: 1,
 			movies: {},
 			movieId: 0,
 			movieDetails: {},
@@ -74,6 +78,31 @@
 		},
 
 		methods: {
+			handleScrollBottom: function (isVisible) {
+				if (!isVisible) return;
+				else this.fetchMoreMovies(this.$route.name);
+			},
+			fetchMoreMovies: async function (currentRoute) {
+				++this.page;
+				let data = null;
+				if (currentRoute === 'popular') {
+					data = await movieService.fetchMoviesByCategories(
+						MOVIE_CATEGORIES.POPULAR_MOVIES,
+						this.page
+					);
+				} else if (currentRoute === 'upcoming') {
+					data = await movieService.fetchMoviesByCategories(
+						MOVIE_CATEGORIES.UPCOMING_MOVIES,
+						this.page
+					);
+				} else {
+					data = await movieService.fetchMoviesByCategories(
+						MOVIE_CATEGORIES.NOW_IN_THEATER,
+						this.page
+					);
+				}
+				this.movies?.results.push(...data.results);
+			},
 			fetchMovies: async function (name) {
 				switch (name) {
 					case 'popular':
