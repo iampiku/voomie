@@ -10,13 +10,11 @@
 					<v-col>
 						<v-img
 							class="rounded-xl"
-							width="180"
+							width="280"
 							:src="`http://image.tmdb.org/t/p/original${movieDetails.poster_path}`"></v-img>
 					</v-col>
 					<v-col>
-						<v-card-title class="pr-4">{{
-							movieDetails.original_title
-						}}</v-card-title>
+						<v-card-title>{{ movieDetails.original_title }}</v-card-title>
 						<v-chip-group class="pb-2">
 							<v-chip
 								tag

@@ -13,7 +13,8 @@
 				:gradient="
 					hover ? null : 'to top, rgba(100,115,201,.20), rgba(25,32,72,.7)'
 				"
-				:src="`http://image.tmdb.org/t/p/original${movie.poster_path}`">
+				:src="`http://image.tmdb.org/t/p/original${movie.poster_path}`"
+				:lazy-src="`http://image.tmdb.org/t/p/original${movie.poster_path}`">
 			</v-img>
 			<v-card-title class="title-name" spacing="-0.3">
 				{{ movie.title }}

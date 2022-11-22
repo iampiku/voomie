@@ -48,7 +48,6 @@
 			page: 1,
 			movies: {},
 			movieId: 0,
-			movieDetails: {},
 			movieCasts: [],
 			showDialog: false,
 			movieCategoryName: '',
@@ -88,17 +87,20 @@
 				if (currentRoute === 'popular') {
 					data = await movieService.fetchMoviesByCategories(
 						MOVIE_CATEGORIES.POPULAR_MOVIES,
-						this.page
+						this.page,
+						true
 					);
 				} else if (currentRoute === 'upcoming') {
 					data = await movieService.fetchMoviesByCategories(
 						MOVIE_CATEGORIES.UPCOMING_MOVIES,
-						this.page
+						this.page,
+						true
 					);
-				} else {
+				} else if (currentRoute === 'nowplaying') {
 					data = await movieService.fetchMoviesByCategories(
 						MOVIE_CATEGORIES.NOW_IN_THEATER,
-						this.page
+						this.page,
+						true
 					);
 				}
 				this.movies?.results.push(...data.results);
@@ -127,11 +129,7 @@
 						this.movieCategoryName = '404';
 				}
 			},
-			fetchMovieDetails: async function (movieID) {
-				this.movieDetails = await movieService.getMovieDetails(movieID);
-			},
 			handleMovieClick: function (movieID) {
-				this.fetchMovieDetails(movieID);
 				this.movieId = movieID;
 				this.showDialog = true;
 			},

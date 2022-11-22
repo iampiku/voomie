@@ -16,7 +16,8 @@
 				<v-img
 					class="rounded-xl"
 					gradient="to top, rgba(100,115,201,.35), rgba(25,32,72,.7)"
-					:src="`http://image.tmdb.org/t/p/original${backdrop_path}`">
+					:src="`http://image.tmdb.org/t/p/original${backdrop_path}`"
+					:lazy-src="`http://image.tmdb.org/t/p/original${backdrop_path}`">
 					<v-card
 						ripple
 						class="mx-6 carousel-card"
