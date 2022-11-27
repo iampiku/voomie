@@ -1,5 +1,5 @@
 <template>
-	<v-app-bar app dark color="bg">
+	<v-app-bar app :color="bg">
 		<v-toolbar-title>
 			<v-img
 				icon
@@ -25,6 +25,12 @@
 			@focus="searchBoxClosed = false"
 			@blur="searchBoxClosed = true">
 		</v-text-field>
+
+		<div class="px-3">
+			<v-icon class="" @click.stop="handleThemeSwitch">{{
+				getSwitchIcon
+			}}</v-icon>
+		</div>
 	</v-app-bar>
 </template>
 
@@ -38,13 +44,34 @@
 			bg: '',
 		}),
 
+		computed: {
+			getSwitchIcon: function () {
+				if (this.$vuetify.theme.isDark) return 'mdi-weather-night';
+				else return 'mdi-white-balance-sunny';
+			},
+		},
+
 		mounted: function () {
 			window.scroll = () => {
 				this.changeColor();
 			};
+
+			this.handleAppTheme();
 		},
 
 		methods: {
+			handleThemeSwitch: function () {
+				this.$vuetify.theme.isDark = !this.$vuetify.theme.isDark;
+				localStorage.setItem('currentTheme', this.$vuetify.theme.isDark);
+			},
+			handleAppTheme: function () {
+				const currentTheme = localStorage.getItem('currentTheme');
+				if (currentTheme === 'true') this.$vuetify.theme.isDark = true;
+				else {
+					this.$vuetify.theme.isDark = false;
+					localStorage.setItem('currentTheme', this.$vuetify.theme.isDark);
+				}
+			},
 			handleHomeRoute: function () {
 				console.log('Home');
 			},

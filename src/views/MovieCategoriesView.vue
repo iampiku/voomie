@@ -3,15 +3,16 @@
 		<div class="d-flex justify-center">
 			<movie-carousel
 				:movies="movies.results"
-				@on-carousel-click="handleMovieClick"></movie-carousel>
+				@on-carousel-click="handleMovieClick">
+			</movie-carousel>
 		</div>
-		<div class="py-6 d-flex justify-center">
+		<v-row class="py-6 d-flex justify-center">
 			<v-chip ripple class="px-12 white--text" color="red"
 				>{{ movieCategoryName }}
 				<v-icon right>{{ getChipIcon }}</v-icon></v-chip
 			>
-		</div>
-		<div class="d-flex flex-row flex-wrap justify-center">
+		</v-row>
+		<v-row class="d-flex flex-row flex-wrap justify-center">
 			<movie-card
 				v-for="(movie, index) in movies.results"
 				:key="index"
@@ -20,7 +21,7 @@
 			<div
 				v-if="movies && movies.results && movies.results.length"
 				v-observe-visibility="handleScrollBottom"></div>
-		</div>
+		</v-row>
 		<MovieDetails v-model="showDialog" :movieId="movieId"></MovieDetails>
 	</v-container>
 </template>
@@ -87,20 +88,17 @@
 				if (currentRoute === 'popular') {
 					data = await movieService.fetchMoviesByCategories(
 						MOVIE_CATEGORIES.POPULAR_MOVIES,
-						this.page,
-						true
+						this.page
 					);
 				} else if (currentRoute === 'upcoming') {
 					data = await movieService.fetchMoviesByCategories(
 						MOVIE_CATEGORIES.UPCOMING_MOVIES,
-						this.page,
-						true
+						this.page
 					);
 				} else if (currentRoute === 'nowplaying') {
 					data = await movieService.fetchMoviesByCategories(
 						MOVIE_CATEGORIES.NOW_IN_THEATER,
-						this.page,
-						true
+						this.page
 					);
 				}
 				this.movies?.results.push(...data.results);

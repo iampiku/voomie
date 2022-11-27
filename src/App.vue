@@ -35,7 +35,6 @@
 			handleSearch: function (searchItem) {
 				this.movies = movieService.getSearchResults(searchItem);
 			},
-
 			handlePageSwitch: function (navItem) {
 				switch (navItem) {
 					case 'home':
