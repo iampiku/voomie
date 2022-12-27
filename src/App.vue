@@ -1,5 +1,5 @@
 <template>
-	<v-app bg="gray">
+	<v-app class="grey--text text--darken-2">
 		<top-bar @search-event="handleSearch"></top-bar>
 		<v-container>
 			<transition name="scale" mode="out-in">
@@ -9,12 +9,14 @@
 		<v-footer padless fixed>
 			<bottom-navigation @nav-action="handlePageSwitch"></bottom-navigation>
 		</v-footer>
+		<!-- <movie-empty-state></movie-empty-state> -->
 	</v-app>
 </template>
 
 <script>
 	import BottomNavigation from '@/components/BottomNavigation.vue';
 	import TopBar from '@/components/TopBar.vue';
+	// import MovieEmptyState from './components/MovieEmptyState.vue';
 
 	import MovieService from './service/MovieService';
 	const movieService = new MovieService();
@@ -23,6 +25,7 @@
 		name: 'App',
 
 		components: {
+			// MovieEmptyState,
 			BottomNavigation,
 			TopBar,
 		},
@@ -57,15 +60,3 @@
 		},
 	};
 </script>
-
-<style scoped>
-	.scale-enter-active,
-	.scale-leave-active {
-		transition: all 0.5s ease;
-	}
-	.scale-enter-from,
-	.scale-leave-to {
-		opacity: 0;
-		transform: scale(0.9);
-	}
-</style>
