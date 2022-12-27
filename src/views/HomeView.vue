@@ -1,5 +1,5 @@
 <template>
-	<v-container class="mt-16">
+	<v-main app>
 		<v-chip
 			style="cursor: pointer"
 			ripple
@@ -10,35 +10,33 @@
 		>
 		<movie-sliders
 			:movies="popularMovies"
-			@movie-clicked="handleMovieClick"></movie-sliders>
+			@slider-clicked="handleMovieClick"></movie-sliders>
 		<v-chip
 			style="cursor: pointer"
 			ripple
 			color="red"
 			class="px-10 ml-16 white--text"
 			@click="handleChipClick('nowplaying')"
-			>Movies in Theater <v-icon right>mdi-movie-play</v-icon></v-chip
-		>
+			>Movies in Theater <v-icon right>mdi-movie-play</v-icon>
+		</v-chip>
 		<movie-sliders
 			:movies="upComingMovies"
-			@movie-clicked="handleMovieClick"></movie-sliders>
+			@slider-clicked="handleMovieClick"></movie-sliders>
 		<v-chip
 			style="cursor: pointer"
 			ripple
 			color="red"
 			class="px-10 ml-16 white--text"
 			@click="handleChipClick('upcoming')"
-			>Upcoming Movies <v-icon right>mdi-motion-play</v-icon></v-chip
-		>
+			>Upcoming Movies <v-icon right>mdi-motion-play</v-icon>
+		</v-chip>
 		<movie-sliders
 			:movies="topRatedMovies"
-			@movie-clicked="handleMovieClick"></movie-sliders>
+			@slider-clicked="handleMovieClick"></movie-sliders>
 
 		<!-- Movie Details -->
-		<movie-details
-			v-model="showMovieDetails"
-			:movie-id="movieId"></movie-details>
-	</v-container>
+		<MovieDetails v-model="showMovieDetails" :movie-id="movieId"></MovieDetails>
+	</v-main>
 </template>
 
 <script>
@@ -118,5 +116,3 @@
 		},
 	};
 </script>
-
-<style scoped></style>

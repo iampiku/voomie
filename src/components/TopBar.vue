@@ -1,5 +1,5 @@
 <template>
-	<v-app-bar app :color="bg">
+	<v-app-bar app>
 		<v-toolbar-title>
 			<v-img
 				icon
@@ -41,22 +41,18 @@
 		data: () => ({
 			searchText: null,
 			searchBoxClosed: true,
-			bg: '',
 		}),
+
+		mounted: function () {
+			this.handleAppTheme();
+		},
 
 		computed: {
 			getSwitchIcon: function () {
-				if (this.$vuetify.theme.isDark) return 'mdi-weather-night';
-				else return 'mdi-white-balance-sunny';
+				return this.$vuetify.theme.isDark
+					? 'mdi-weather-night'
+					: 'mdi-white-balance-sunny';
 			},
-		},
-
-		mounted: function () {
-			window.scroll = () => {
-				this.changeColor();
-			};
-
-			this.handleAppTheme();
 		},
 
 		methods: {
@@ -74,16 +70,6 @@
 			},
 			handleHomeRoute: function () {
 				console.log('Home');
-			},
-			changeColor: function () {
-				if (
-					document.body.scrollTop > 100 ||
-					document.documentElement.scrollTop > 100
-				) {
-					this.bg = 'white';
-				} else {
-					this.bg = 'transparent';
-				}
 			},
 		},
 	};

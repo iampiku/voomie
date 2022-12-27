@@ -1,13 +1,9 @@
 <template>
-	<v-sheet class="mx-auto">
-		<v-slide-group class="pa-4" show-arrows>
-			<v-slide-item v-for="(movie, index) in movies.results" :key="index">
-				<MovieCard
-					:movie="movie"
-					@on-movie-click="handleMovieClick"></MovieCard>
-			</v-slide-item>
-		</v-slide-group>
-	</v-sheet>
+	<v-slide-group class="pa-4" show-arrows>
+		<v-slide-item v-for="(movie, index) in movies.results" :key="index">
+			<MovieCard :movie="movie" @on-movie-click="handleMovieClick"></MovieCard>
+		</v-slide-item>
+	</v-slide-group>
 </template>
 
 <script>
@@ -29,10 +25,8 @@
 
 		methods: {
 			handleMovieClick: function (movieId) {
-				console.log(movieId);
+				this.$emit('slider-clicked', movieId);
 			},
 		},
 	};
 </script>
-
-<style scoped></style>

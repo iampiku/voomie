@@ -1,5 +1,5 @@
 <template>
-	<v-container class="mt-12" dark>
+	<v-container class="mt-12">
 		<div class="d-flex justify-center">
 			<movie-carousel
 				:movies="movies.results"
@@ -12,7 +12,7 @@
 				<v-icon right>{{ getChipIcon }}</v-icon></v-chip
 			>
 		</v-row>
-		<v-row class="d-flex flex-row flex-wrap justify-center">
+		<v-row class="d-flex flex-row flex-wrap justify-center dense">
 			<movie-card
 				v-for="(movie, index) in movies.results"
 				:key="index"
@@ -70,8 +70,8 @@
 
 		watch: {
 			$route: {
-				handler(value) {
-					this.fetchMovies(value.name);
+				handler({ name }) {
+					this.fetchMovies(name);
 				},
 				immediate: true,
 			},
